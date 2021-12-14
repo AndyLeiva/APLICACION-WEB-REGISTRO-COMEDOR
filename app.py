@@ -14,17 +14,17 @@ db.init_app(app)
 
 
 @app.route("/")
-def home():
+def inicio():
     return render_template("index.html")
+@app.route("/agregarestudiante")
+def agregar():
+    return render_template("agregarestudiante.html")
+
+@app.route("/registarestudiante")
+def registrar():
+    return render_template("registrarestudiantes.html")
 
 
-@app.route("/buscarestudiante")
-def buscar():
-    return render_template("buscarestudiantes.html")
-
-@app.route("/api/buscarestudiante")
-def encontrado():
-    return render_template("estudiante.html")
 
 
 @app.route("/api/estudiantes", methods=["GET"])
@@ -78,11 +78,11 @@ def addestudiante():
         db.session.commit()
         
 
-        return jsonify(estudiante.serialize()), 200
+        return render_template("agregado.html")
 
     except Exception:
         exception("\n[SERVER]: Error in route /api/addestudiante. Log: \n")
-        return jsonify({"ms":"Algo ha salido mal"}), 500
+        return render_template("error.html")
 
 
 #Buscar estudiante        

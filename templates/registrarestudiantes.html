@@ -8,19 +8,21 @@
 </head>
 <body>
     <h1>
-        Buscar un estudiante
+        Registar el acceso del estudiante al comedor
     </h1>
     
     <form action="/api/registrarEstudianteAcceso" method="post">
         <label for="nombre">Nombre del estudiante</label><br>
-        <input type="text" name="nombre" id="nombre" placeholder="Nombre" value=><br>
+        <input type="text" name="nombre" id="nombre" placeholder="Nombre" required><br>
         
        
-        <input type="submit" value="Buscar Estudiante">
+        <input type="submit" value="Registrar Acceso">
     </form>
     
     <ul>
-        <li><a href="/">Agregar Estudiantes</a></li>
+        <li><a href="/">INICIO</a></li>
+        <li><a href="/registarestudiante">REGISTRAR ESTUDIANTE</a></li>
+        <li><a href="/agregarestudiante">AGREGAR ESTUDIANTE</a></li>
      
         
     </ul>

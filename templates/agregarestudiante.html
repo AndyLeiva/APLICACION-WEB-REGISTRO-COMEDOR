@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGREGAR ESTUDIANTE</title>
+</head>
+<body>
+    <h1>
+        Añade un nuevo estudiante
+    </h1>
+    <p>{{variable}}</p>
+    <form action="/api/addestudiante" method="post">
+        <label for="nombre">Nombre del estudiante</label><br>
+        <input type="text" name="nombre" id="nombre" placeholder="Nombre" required><br>
+        
+        <label for="cedula">Cedula</label><br>
+        <input type="text" name="cedula" id="cedula" placeholder="Cedula" required><br>
+        
+        <label for="seccion">Seccion</label><br>
+        <input type="text" name="seccion" id="seccion" placeholder="Seccion" required><br>
+
+        <input type="submit" value="Agregar Estudiante">
+        
+    </form>
+    <ul>
+        <li><a href="/">INICIO</a></li>
+        <li><a href="/registarestudiante">REGISTRAR ESTUDIANTE</a></li>
+        <li><a href="/agregarestudiante">AGREGAR ESTUDIANTE</a></li>
+        
+    </ul>
+</body>
+</html>
