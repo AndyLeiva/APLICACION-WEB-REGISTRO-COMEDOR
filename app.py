@@ -87,6 +87,7 @@ def buscarEstudinateForm():
         if not estudiante:
             return jsonify({"msg": "Este estudiante no existe"}), 200
         else:
+            print(estudiante)
             return jsonify(estudiante.serialize()), 200
 
     except Exception:

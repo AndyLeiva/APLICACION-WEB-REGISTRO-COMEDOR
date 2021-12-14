@@ -27,10 +27,11 @@ class Estudiantes(db.Model):
         )
 
     def serialize(self):
+
         return{
             "rowid": self.rowid,
-            "cedula": self.cedula,
-            "nombre": self.nombre,
+            "Cedula": self.cedula,
+            "Nombre": self.nombre,
             "seccion": self.seccion
 
         }
