@@ -11,6 +11,14 @@ class Estudiantes(db.Model):
     nombre = db.Column(db.String(100))
     seccion = db.Column(db.String(10))
 
+
+    def __init__(self,cedula, nombre, seccion):
+        super().__init__()
+        self.cedula = cedula
+        self.nombre= nombre
+        self.seccion = seccion
+
+
     def __str__(self):
         return "\nCedula: {}, Nombre: {}, Seccion: {}".format(
             self.cedula,

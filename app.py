@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from Models import db, Estudiantes
 from logging import exception
 
@@ -12,21 +12,26 @@ db.init_app(app)
 
 @app.route("/")
 def home():
-    return "<h1>Hola</h1>"
+    return render_template("index.html")
+
+
+@app.route("/buscarestudiante")
+def buscar():
+    return render_template("buscarestudiantes.html")
 
 @app.route("/api/estudiantes", methods=["GET"])
 def getEstudiantes():
     try:
         estudiantes = Estudiantes.query.all()
         toReturn = [estudiante.serialize() for estudiante in estudiantes]
-        return jsonify(toReturn), 200
+        return jsonify(toReturn), 200 
 
     except Exception:
         exception("[SERVER]: Error ->")
         return jsonify({"msg":"Ha ocurrido un error"}), 500
 
 
-
+#Encontrar estudiante
 
 @app.route("/api/findestudiante", methods=["GET"])
 def getestudiante():
@@ -51,7 +56,42 @@ def getestudiante():
         exception("[SERVER]: Error ->")
         return jsonify({"msg": "Ha ocurrido un error"}), 500
 
+#Agregar estudiante
+@app.route("/api/addestudiante", methods=["POST"])
 
+def addestudiante():
+    try:
+        nombre = request.form["nombre"]
+        cedula = request.form["cedula"]
+        seccion = request.form["seccion"]
+
+        estudiante = Estudiantes(int(cedula),nombre, seccion)
+        db.session.add(estudiante)
+        db.session.commit()
+
+        return jsonify(estudiante.serialize()), 200
+
+    except Exception:
+        exception("\n[SERVER]: Error in route /api/addestudiante. Log: \n")
+        return jsonify({"ms":"Algo ha salido mal"}), 500
+
+
+#Buscar estudiante        
+
+@app.route("/api/buscarestudiante", methods=["POST"])
+def buscarEstudinateForm():
+    try:
+        nombreEstudiante = request.form["nombre"]
+
+        estudiante = Estudiantes.query.filter(Estudiantes.nombre.like(f"%{nombreEstudiante}%")).first()
+        if not estudiante:
+            return jsonify({"msg": "Este estudiante no existe"}), 200
+        else:
+            return jsonify(estudiante.serialize()), 200
+
+    except Exception:
+        exception("[SERVER]: Error in route /api/searchEstudiante ->")
+        return jsonify({"msg": "Ha ocurrido un error"}), 500
 
 
 if __name__ == "__main__":
