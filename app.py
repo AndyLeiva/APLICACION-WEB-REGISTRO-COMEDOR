@@ -1,6 +1,9 @@
 from flask import Flask, jsonify, request, render_template
 from Models import db, Estudiantes
 from logging import exception
+import time
+from database import registraraccesos
+
 
 app = Flask(__name__)
 
@@ -18,6 +21,11 @@ def home():
 @app.route("/buscarestudiante")
 def buscar():
     return render_template("buscarestudiantes.html")
+
+@app.route("/api/buscarestudiante")
+def encontrado():
+    return render_template("estudiante.html")
+
 
 @app.route("/api/estudiantes", methods=["GET"])
 def getEstudiantes():
@@ -68,6 +76,7 @@ def addestudiante():
         estudiante = Estudiantes(int(cedula),nombre, seccion)
         db.session.add(estudiante)
         db.session.commit()
+        
 
         return jsonify(estudiante.serialize()), 200
 
@@ -78,21 +87,32 @@ def addestudiante():
 
 #Buscar estudiante        
 
-@app.route("/api/buscarestudiante", methods=["POST"])
-def buscarEstudinateForm():
+@app.route("/api/registrarEstudianteAcceso", methods=["POST"])
+def registrarEstudianteAcceso():
     try:
         nombreEstudiante = request.form["nombre"]
 
         estudiante = Estudiantes.query.filter(Estudiantes.nombre.like(f"%{nombreEstudiante}%")).first()
         if not estudiante:
-            return jsonify({"msg": "Este estudiante no existe"}), 200
+            return render_template("error.html")
         else:
-            print(estudiante)
-            return jsonify(estudiante.serialize()), 200
+           
+            nombre = estudiante.getNombre()
+            print(nombre)
+            cedula = estudiante.getCedula()
+            print(cedula)
+            seccion = estudiante.getSeccion()
+            print(seccion)
+
+            fecha = time.strftime("%x")
+            registraraccesos.agregarValores(int(cedula),nombre, seccion, fecha)
+            return render_template("datosestudiante.html", nombre = nombre, cedula = cedula, seccion = seccion, fecha = fecha)
 
     except Exception:
         exception("[SERVER]: Error in route /api/searchEstudiante ->")
         return jsonify({"msg": "Ha ocurrido un error"}), 500
+
+
 
 
 if __name__ == "__main__":

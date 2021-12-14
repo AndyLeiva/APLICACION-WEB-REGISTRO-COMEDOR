@@ -8,19 +8,25 @@
 </head>
 <body>
     <h1>
-        Buscar un estudiante por su nombre
+        Buscar un estudiante
     </h1>
-    <form action="/api/buscarestudiante" method="post">
+    
+    <form action="/api/registrarEstudianteAcceso" method="post">
         <label for="nombre">Nombre del estudiante</label><br>
-        <input type="text" name="nombre" id="nombre" placeholder="Nombre"><br>
+        <input type="text" name="nombre" id="nombre" placeholder="Nombre" value=><br>
         
        
         <input type="submit" value="Buscar Estudiante">
     </form>
+    
     <ul>
         <li><a href="/">Agregar Estudiantes</a></li>
+     
         
     </ul>
+
+    <p>{{datos}}</p>
+
     
 </body>
 </html>

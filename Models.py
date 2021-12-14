@@ -19,19 +19,23 @@ class Estudiantes(db.Model):
         self.seccion = seccion
 
 
-    def __str__(self):
+    """ def __str__(self):
         return "\nCedula: {}, Nombre: {}, Seccion: {}".format(
             self.cedula,
             self.nombre,
             self.seccion
-        )
+        ) """
 
-    def serialize(self):
+    def getNombre(self):
+        return self.nombre
+     
+    def getCedula(self):
+        return self.cedula
 
-        return{
-            "rowid": self.rowid,
-            "Cedula": self.cedula,
-            "Nombre": self.nombre,
-            "seccion": self.seccion
+    def getSeccion(self):
+        return self.seccion
 
-        }
+
+
+
+

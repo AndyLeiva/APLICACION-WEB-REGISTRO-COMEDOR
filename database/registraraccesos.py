@@ -14,14 +14,11 @@ def crearBD():
     conexion.commit()
     conexion.close()
 
-def agregarValores():
+def agregarValores(cedula, nombre, seccion, fecha):
     conexion = sql.connect(DB_PATH)
     cursor = conexion.cursor()
-    datos = [
-        (1234,"Andy","10-1"),
-        (2345,"Allison","10-1")
-    ]
-    cursor.executemany("""INSERT INTO estudiantes VALUES (?,?,?)""", datos)
+    instruccion = f"INSERT INTO Registros VALUES({cedula}, '{nombre}', '{seccion}', '{fecha}')"
+    cursor.execute(instruccion)
     conexion.commit()
     conexion.close()
 
@@ -29,5 +26,5 @@ def agregarValores():
 
 
 if __name__ == "__main__":
-    crearBD()
-    #agregarValores()
+    #crearBD()
+    agregarValores()
