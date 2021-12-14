@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Registro Comedor</title>
+</head>
+<body>
+    <h1>
+        Añade un nuevo estudiante
+    </h1>
+    
+    <form action="/api/addestudiante" method="post">
+        <label for="nombre">Nombre del estudiante</label><br>
+        <input type="text" name="nombre" id="nombre" placeholder="Nombre"><br>
+        
+        <label for="cedula">Cedula</label><br>
+        <input type="text" name="cedula" id="cedula" placeholder="Cedula"><br>
+        
+        <label for="seccion">Seccion</label><br>
+        <input type="text" name="seccion" id="seccion" placeholder="Seccion"><br>
+
+        <input type="submit" value="Agregar Estudiante">
+        
+    </form>
+</body>
+</html>
